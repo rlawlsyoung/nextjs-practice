@@ -1,4 +1,4 @@
-interface userdataType {
+interface userDataType {
   id: number;
   name: string;
   username: string;
@@ -67,17 +67,17 @@ const DUMMY_DATA = [
   },
 ];
 
-const HomePage = (props: any) => {
+const HomePage = (props: { userList: userDataType[] }) => {
   return (
     <>
       <h1>User List</h1>
       <ul>
-        {DUMMY_DATA.map((user: userdataType) => {
+        {props.userList.map((user: userDataType) => {
           return (
             <li>
-              <title>
-                {user.name} ({user.username})
-              </title>
+              <p>
+                <b>{user.name}</b> ({user.username})
+              </p>
               <p>email : {user.email}</p>
             </li>
           );
@@ -88,12 +88,10 @@ const HomePage = (props: any) => {
 };
 
 export async function getStaticProps() {
-  // fetch data from an API
   return {
     props: {
-      meetups: 1,
+      userList: DUMMY_DATA,
     },
-    revalidate: 1,
   };
 }
 
