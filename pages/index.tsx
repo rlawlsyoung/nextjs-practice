@@ -74,7 +74,7 @@ const HomePage = (props: { userList: userDataType[] }) => {
       <ul>
         {props.userList.map((user: userDataType) => {
           return (
-            <li>
+            <li key={user.id}>
               <p>
                 <b>{user.name}</b> ({user.username})
               </p>
@@ -88,9 +88,11 @@ const HomePage = (props: { userList: userDataType[] }) => {
 };
 
 export async function getStaticProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/users");
+  const data = await res.json();
   return {
     props: {
-      userList: DUMMY_DATA,
+      userList: data,
     },
   };
 }
