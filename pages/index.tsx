@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface userDataType {
   id: number;
   name: string;
@@ -75,9 +77,9 @@ const HomePage = (props: { userList: userDataType[] }) => {
         {props.userList.map((user: userDataType) => {
           return (
             <li key={user.id}>
-              <p>
+              <Link href={user.id.toString()}>
                 <b>{user.name}</b> ({user.username})
-              </p>
+              </Link>
               <p>email : {user.email}</p>
             </li>
           );
