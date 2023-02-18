@@ -1,29 +1,28 @@
 const UserDetail = (props: any) => {
+  console.log(props.userData);
+
   return (
     <>
-      <h1> 하이</h1>
+      <h1>
+        {props.userData.name} ({props.userData.username})
+      </h1>
+      <ul>
+        <li>phone : {props.userData.phone}</li>
+        <li>email : {props.userData.email}</li>
+      </ul>
     </>
   );
 };
 
-// export const getStaticPaths = async () => {
-//   const res = await fetch(`https://jsonplaceholder.typicode.com/users/`);
-//   const data = await res.json();
-//   return {
-//     fallback: false,
-//     paths: meetups.map((meetup) => ({
-//       params: { meetupId: meetup._id.toString() },
-//     })),
-//   };
-// };
-
 export async function getServerSideProps(context: any) {
   console.log(typeof context);
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/`);
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/users/${context.params.userId}`
+  );
   const data = await res.json();
   return {
     props: {
-      userList: data,
+      userData: data,
     },
   };
 }
